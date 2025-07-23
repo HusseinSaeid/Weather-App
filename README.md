@@ -1,52 +1,69 @@
-# 🌤️ WeatherCard - React Weather App
+# React + TypeScript + Vite
 
-**WeatherCard** is a simple and elegant weather application built with **React**, **Material UI (MUI)**, and **Framer Motion**. It allows users to search for any city around the world and get real-time weather data, including temperature, weather conditions, and date — all displayed with a smooth and responsive UI.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## 🚀 Features
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-- 🔍 Search for any city by name
-- 🌡️ Display current, minimum, and maximum temperatures
-- 🌥️ Show weather description with icon
-- 📅 Display current date using Moment.js
-- 🎨 Responsive design with Material UI + Tailwind CSS
-- ⚡ Smooth animations using Framer Motion
-- 🌍 Uses OpenWeatherMap API to fetch data
+## Expanding the ESLint configuration
 
----
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-## 🧰 Tech Stack
+```js
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-- **React (TypeScript)**
-- **Material UI (MUI)**
-- **Framer Motion**
-- **Axios** – for HTTP requests
-- **Moment.js** – for date formatting
-- **Tailwind CSS** – utility-first styling
-- **OpenWeatherMap API**
+      // Remove tseslint.configs.recommended and replace with this
+      ...tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      ...tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      ...tseslint.configs.stylisticTypeChecked,
 
----
-
-## 📦 How to Run the Project
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/your-username/weather-card.git
-   cd weather-card
-   npm install
-   ```
-2. **Create a .env file in the root directory and add your OpenWeatherMap API key:**
-```bash
-NEXT_PUBLIC_WEATHER_API_KEY=your_api_key_here
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-3. **Run the development server:**
-```bash
-npm run dev
+
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default tseslint.config([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
- 
-
-
-
-
-
